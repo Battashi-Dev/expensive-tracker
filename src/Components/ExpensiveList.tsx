@@ -1,4 +1,4 @@
-import { Button, Table, Tbody, Td, Thead, Tr } from "@chakra-ui/react";
+import { Button, Table, Tbody, Td, Tfoot, Thead, Tr } from "@chakra-ui/react";
 
 interface Expenses {
   id: number;
@@ -29,13 +29,29 @@ const ExpensiveList = ({ expenses, onDelete }: Props) => {
             <Td>{expense.amount}</Td>
             <Td>{expense.category}</Td>
             <Td>
-              <Button onClick={() => onDelete(expense.id)} colorScheme="red" variant="outline">
+              <Button
+                onClick={() => onDelete(expense.id)}
+                colorScheme="red"
+                variant="outline"
+              >
                 Delete
               </Button>
             </Td>
           </Tr>
         ))}
       </Tbody>
+      <Tfoot>
+        <Tr>
+          <Td>Total</Td>
+          <Td>
+            {expenses
+              .reduce((acc, expense) => acc + expense.amount, 0)
+              .toFixed(2)}
+          </Td>
+          <Td></Td>
+          <Td></Td>
+        </Tr>
+      </Tfoot>
     </Table>
   );
 };
