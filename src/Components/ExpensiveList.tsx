@@ -1,4 +1,4 @@
-import { Table, Tbody, Td, Thead, Tr } from "@chakra-ui/react";
+import { Button, Table, Tbody, Td, Thead, Tr } from "@chakra-ui/react";
 
 interface Expenses {
   id: number;
@@ -9,8 +9,9 @@ interface Expenses {
 
 interface Props {
   expenses: Expenses[];
+  onDelete: (id: number) => void;
 }
-const ExpensiveList = ({ expenses }: Props) => {
+const ExpensiveList = ({ expenses, onDelete }: Props) => {
   return (
     <Table>
       <Thead>
@@ -27,7 +28,11 @@ const ExpensiveList = ({ expenses }: Props) => {
             <Td>{expense.description}</Td>
             <Td>{expense.amount}</Td>
             <Td>{expense.category}</Td>
-            <Td></Td>
+            <Td>
+              <Button onClick={() => onDelete(expense.id)} colorScheme="red" variant="outline">
+                Delete
+              </Button>
+            </Td>
           </Tr>
         ))}
       </Tbody>
