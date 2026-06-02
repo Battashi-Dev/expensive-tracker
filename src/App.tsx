@@ -1,6 +1,7 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import ExpensiveList from "./Components/ExpensiveList";
 import { useState } from "react";
+import ExpensiveFilter from "./Components/ExpensiveFilter";
 
 function App() {
   const [expenses, setExpenses] = useState([
@@ -11,7 +12,8 @@ function App() {
 
   return (
     <Grid>
-      <GridItem>
+      <GridItem p={3}>
+        <ExpensiveFilter />
         <ExpensiveList
           expenses={expenses}
           onDelete={(id) =>
