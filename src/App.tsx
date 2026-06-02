@@ -2,6 +2,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import ExpensiveList from "./Components/ExpensiveList";
 import { useState } from "react";
 import ExpensiveFilter from "./Components/ExpensiveFilter";
+import NavBar from "./Components/NavBar";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -15,13 +16,15 @@ function App() {
     ? expenses.filter((expense) => expense.category === selectedCategory)
     : expenses;
   return (
-    <Grid p={3}>
-      <GridItem>
+    <Grid templateAreas={`"nav" "main" "foot"`} p={3}>
+      <GridItem area="nav">
+        <NavBar />
+      </GridItem>
+      <GridItem area="main">
         <ExpensiveFilter
           onSelectCategory={(category) => setSelectedCategory(category)}
         />
-      </GridItem>
-      <GridItem>
+
         <ExpensiveList
           expenses={visibleExpenses}
           onDelete={(id) =>
@@ -29,6 +32,7 @@ function App() {
           }
         />
       </GridItem>
+      <GridItem area="footer"></GridItem>
     </Grid>
   );
 }
