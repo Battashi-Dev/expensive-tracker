@@ -3,6 +3,7 @@ import ExpensiveList from "./Components/ExpensiveList";
 import { useState } from "react";
 import ExpensiveFilter from "./Components/ExpensiveFilter";
 import NavBar from "./Components/NavBar";
+import ExpensiveForm from "./Components/ExpensiveForm";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -21,6 +22,7 @@ function App() {
         <NavBar />
       </GridItem>
       <GridItem area="main">
+        <ExpensiveForm />
         <ExpensiveFilter
           onSelectCategory={(category) => setSelectedCategory(category)}
         />
