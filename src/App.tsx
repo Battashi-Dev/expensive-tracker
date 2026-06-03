@@ -22,7 +22,14 @@ function App() {
         <NavBar />
       </GridItem>
       <GridItem area="main">
-        <ExpensiveForm />
+        <ExpensiveForm
+          onSubmit={(expense) =>
+            setExpenses([
+              ...expenses,
+              { ...expense, id: expenses.length + Date.now() },
+            ])
+          }
+        />
         <ExpensiveFilter
           onSelectCategory={(category) => setSelectedCategory(category)}
         />
