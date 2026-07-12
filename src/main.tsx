@@ -2,7 +2,6 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./Components/Theme.tsx";
-import "./index.css";
 import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
