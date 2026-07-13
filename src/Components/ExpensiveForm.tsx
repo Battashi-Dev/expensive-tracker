@@ -9,8 +9,7 @@ import {
 import { useForm } from "react-hook-form";
 import { categories } from "./constant";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {  schema, type FormData} from './Validation'
-
+import { schema, type FormData } from "./Validation";
 
 interface Props {
   onSubmit: (data: FormData) => void;
@@ -18,13 +17,13 @@ interface Props {
   submitLabel: string;
 }
 
-const ExpensiveForm = ({ onSubmit, defaultValues, submitLabel= "Add "}: Props) => {
+const ExpensiveForm = ({ onSubmit, defaultValues, submitLabel }: Props) => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema), defaultValues, });
+  } = useForm<FormData>({ resolver: zodResolver(schema), defaultValues });
   return (
     <form
       onSubmit={handleSubmit((data) => {

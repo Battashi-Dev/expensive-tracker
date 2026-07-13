@@ -12,4 +12,9 @@ export const schema = z.object({
   }),
 });
 
+export const expenseSchema = schema.extend({
+  id: z.string()
+});
+
+export type Expense = z.infer<typeof expenseSchema>;
 export type FormData = z.infer<typeof schema>;

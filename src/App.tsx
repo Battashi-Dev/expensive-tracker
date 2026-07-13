@@ -4,14 +4,11 @@ import { useState } from "react";
 import ExpensiveFilter from "./Components/ExpensiveFilter";
 import NavBar from "./Components/NavBar";
 import ExpensiveForm from "./Components/ExpensiveForm";
+import useExpense from "./Components/Hooks/useExpense";
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [expenses, setExpenses] = useState([
-    { id: 1, description: "Food", amount: 50, category: "Grocery" },
-    { id: 2, description: "Water", amount: 1000, category: "Utilities" },
-    { id: 4, description: "movie", amount: 200, category: "Entertainment" },
-  ]);
+  const { expenses, addExpense, removeExpense } = useExpense();
 
   const visibleExpenses = selectedCategory
     ? expenses.filter((expense) => expense.category === selectedCategory)
@@ -23,23 +20,15 @@ function App() {
       </GridItem>
       <GridItem area="main">
         <ExpensiveForm
-          onSubmit={(expense) =>
-            setExpenses([
-              ...expenses,
-              { ...expense, id: expenses.length + Date.now() },
-            ])
-          }
+          onSubmit={addExpense}
+          defaultValues={{}}
+          submitLabel="Submit"
         />
         <ExpensiveFilter
           onSelectCategory={(category) => setSelectedCategory(category)}
         />
 
-        <ExpensiveList
-          expenses={visibleExpenses}
-          onDelete={(id) =>
-            setExpenses(expenses.filter((expense) => expense.id !== id))
-          }
-        />
+        <ExpensiveList expenses={visibleExpenses} onDelete={removeExpense} />
       </GridItem>
       <GridItem area="footer"></GridItem>
     </Grid>

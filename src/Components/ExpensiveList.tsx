@@ -1,15 +1,9 @@
 import { Button, Table, Tbody, Td, Tfoot, Thead, Tr } from "@chakra-ui/react";
-
-interface Expenses {
-  id: number;
-  description: string;
-  amount: number;
-  category: string;
-}
+import { type Expense } from "./Validation";
 
 interface Props {
-  expenses: Expenses[];
-  onDelete: (id: number) => void;
+  expenses: Expense[];
+  onDelete: (id: string) => void;
 }
 const ExpensiveList = ({ expenses, onDelete }: Props) => {
   return (
@@ -19,7 +13,6 @@ const ExpensiveList = ({ expenses, onDelete }: Props) => {
           <Td>Description</Td>
           <Td>Amount</Td>
           <Td>Category</Td>
-          <Td></Td>
         </Tr>
       </Thead>
       <Tbody>
