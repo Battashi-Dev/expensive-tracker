@@ -27,15 +27,22 @@ export const useExpense = () => {
     saveExpenses(expenses);
   }, [expenses]);
 
-const addExpense = (data: Omit<Expense, "id">) => {
+const addExpense = (data: Omit<Expense, 'id'>) => {
   const newExpense: Expense = {
     ...data, id: crypto.randomUUID()
   }
-  setExpenses((prevExpenses) => [...prevExpenses, newExpense])
+  setExpenses((expense) => [...expense, newExpense])
 }
+
   const removeExpense = (id: string) =>
     setExpenses(expenses.filter((expense) => expense.id !== id));
-  return { expenses, addExpense, removeExpense };
+ 
+ const editExpense = (id: Expense['id'], data: Partial<Expense>) => {
+setExpenses((expense) => expense.map((e) => (e.id === id ? {...e, ...data}: e)))
+ }
+ 
+  return { expenses, addExpense, removeExpense, editExpense  };
 };
+
 
 export default useExpense;

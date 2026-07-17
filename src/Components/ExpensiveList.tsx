@@ -19,8 +19,9 @@ import { FiTrash2 } from "react-icons/fi";
 interface Props {
   expenses: Expense[];
   onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
 }
-const ExpensiveList = ({ expenses, onDelete }: Props) => {
+const ExpensiveList = ({ expenses, onDelete, onEdit }: Props) => {
   const { text, bgTotal } = useThemeColors();
 
   if (expenses.length === 0) {
@@ -58,7 +59,12 @@ const ExpensiveList = ({ expenses, onDelete }: Props) => {
               <Td isNumeric>${expense.amount.toFixed(2)}</Td>
               <Td>{expense.category}</Td>
               <Td>
-                <Button size="xs" colorScheme="blue" borderRadius={10}>
+                <Button
+                  onClick={() => onEdit(expense.id)}
+                  size="xs"
+                  colorScheme="blue"
+                  borderRadius={10}
+                >
                   Edit
                 </Button>
               </Td>
