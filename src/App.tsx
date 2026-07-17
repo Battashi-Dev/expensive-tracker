@@ -29,6 +29,7 @@ function App() {
     }
   };
   return (
+    <main>
     <Box p={2} bg={bg} minH="100vh">
       <NavBar />
       <Box mx="auto" px={4} py={6}>
@@ -54,6 +55,7 @@ function App() {
         </Stack>
       </Box>
     </Box>
+    </main>
   );
 }
 
