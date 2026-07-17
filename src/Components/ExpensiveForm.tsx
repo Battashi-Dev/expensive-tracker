@@ -1,13 +1,13 @@
 import {
   Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
   Select,
-  Text,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { categories } from "./constant";
+import { categories, useThemeColors } from "./constant";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schema, type FormData } from "./Validation";
 
@@ -18,6 +18,7 @@ interface Props {
 }
 
 const ExpensiveForm = ({ onSubmit, defaultValues, submitLabel }: Props) => {
+ const {text} = useThemeColors();
   const {
     register,
     handleSubmit,
@@ -25,39 +26,55 @@ const ExpensiveForm = ({ onSubmit, defaultValues, submitLabel }: Props) => {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema), defaultValues });
   return (
-    <form
+   
+    <form 
       onSubmit={handleSubmit((data) => {
         onSubmit(data);
         reset();
       })}
     >
-      <FormControl>
-        <FormLabel>Description</FormLabel>
-        <Input {...register("description")} type="text" />
-        {errors.description && (
-          <Text color="red">{errors.description.message}</Text>
-        )}
+      <FormControl py={2} isInvalid={!!errors.description} >
+        <FormLabel color={text} >Description</FormLabel>
+        <Input
+          {...register("description")}
+          size="sm"
+          borderRadius={10} p={3}
+          type="text"
+        />
+        <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
       </FormControl>
-      <FormControl>
-        <FormLabel>Amount</FormLabel>
-        <Input {...register("amount", { valueAsNumber: true })} type="number" />
-        {errors.amount && <Text color="red">{errors.amount.message}</Text>}
-      </FormControl>
-      <FormControl>
-        <FormLabel>Description</FormLabel>
-        <Select {...register("category")} placeholder="Select Option">
+      <FormControl  py={2} isInvalid={!!errors.amount} >
+        <FormLabel color={text}>Amount</FormLabel>
+        <Input
+        p={3}
+          size="sm"
+          borderRadius={10}
+          {...register("amount", { valueAsNumber: true })}
+          type="number"
+        />
+        <FormErrorMessage>{errors.amount?.message}</FormErrorMessage>
+      </FormControl >
+      <FormControl  py={2} isInvalid={!!errors.category} >
+        <FormLabel color={text}>Category</FormLabel>
+        <Select
+          {...register("category")}
+          size="sm"
+          borderRadius={10} 
+          placeholder="Select Option"
+        >
           {categories.map((category) => (
             <option value={category} key={category}>
               {category}
             </option>
           ))}
         </Select>
-        {errors.category && <Text color="red">{errors.category.message}</Text>}
+        <FormErrorMessage>{errors.category?.message}</FormErrorMessage>
       </FormControl>
-      <Button type="submit" colorScheme="blue">
+      <Button mt={4} size="sm" borderRadius={10} type="submit" colorScheme="blue">
         {submitLabel}
       </Button>
     </form>
+   
   );
 };
 

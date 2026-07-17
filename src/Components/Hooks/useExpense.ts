@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Expense, FormData } from "../Validation";
+import type { Expense} from "../Validation";
 
 const STORAGE_KEY = "expensive-tracker: expenses";
 
@@ -27,9 +27,12 @@ export const useExpense = () => {
     saveExpenses(expenses);
   }, [expenses]);
 
-  const addExpense = (expense: FormData) =>
-    setExpenses([...expenses, { ...expense, id: crypto.randomUUID() }]);
-
+const addExpense = (data: Omit<Expense, "id">) => {
+  const newExpense: Expense = {
+    ...data, id: crypto.randomUUID()
+  }
+  setExpenses((prevExpenses) => [...prevExpenses, newExpense])
+}
   const removeExpense = (id: string) =>
     setExpenses(expenses.filter((expense) => expense.id !== id));
   return { expenses, addExpense, removeExpense };
